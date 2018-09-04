@@ -1,0 +1,5 @@
+/* Ensure that the design responds well to mobile (320px), tablet (768px) and desktop (1024px) screen sizes. */
+/* Use CSS grid to lay out the main elements (header, sidebar navigation, main content) on the page. */
+
+/*Include a notification icon in the navigation header.*/
+  /*Add a CSS transition to the bell icon when the user hovers over it.*/
