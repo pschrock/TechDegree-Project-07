@@ -45,6 +45,23 @@
   // Use JS to display error messages if a user isn’t selected or message field is empty.
 // Style to match the overall look and feel of the dashboard.
 
+const sendButton = document.getElementById('sendButton');
+const searchedUser = document.querySelector('.message input');
+const message = document.querySelector('.message textArea');
+
+sendButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (searchedUser.value == "") {
+    alert("Please input a users name you would like to send a message to.");
+  } else if (message.value == "") {
+    alert("Please input a message you would like to send " + searchedUser.value + ".");
+  } else {
+    alert("Your message to " + searchedUser.value + " has been sent.");
+    searchedUser.value = "";
+    message.value = "";
+  }
+})
+
 
 // ----Settings Widget----
 // Create a settings widget to display various setting options using different form elements.
@@ -53,3 +70,20 @@
   // Create a drop-down to select the timezone.
 // Add Save and Cancel buttons (these do not have to do anything functional).
 // Style to match the overall look and feel of the dashboard.
+
+
+// ----Navagation----
+const navbar = document.querySelectorAll(".navbar a");
+const dashboard = navbar[0];
+const members = navbar[1];
+const visits = navbar[2];
+const settings = navbar[3];
+
+for (let i = 0; i < navbar.length; ++i) {
+  navbar[i].addEventListener('click', (e) => {
+    for (let i = 0; i < navbar.length; ++i) {
+      navbar[i].classList.remove("selected");
+    }
+    e.path[1].classList.add("selected");
+  })
+}
