@@ -1,5 +1,352 @@
 /* Ensure that the design responds well to mobile (320px), tablet (768px) and desktop (1024px) screen sizes. */
 /* Use CSS grid to lay out the main elements (header, sidebar navigation, main content) on the page. */
 
+
+
+/* ---Main--- */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+:root {
+  --primary-background-color: #ac6800 /*#284f99*/;
+  --secondary-background-color: #d88300 /*#3669cc*/;
+  --tertiary-background-color: white;
+  --primary-font-color: white;
+  --secondary-font-color: lightgray;
+  --border-color: #e5e5e5;
+  --gutter: 10px;
+}
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  grid-template-columns: 50px auto;
+  grid-template-rows: 50px auto;
+}
+
+
+
+/* ---Header--- */
 /*Include a notification icon in the navigation header.*/
   /*Add a CSS transition to the bell icon when the user hovers over it.*/
+.header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: var(--primary-background-color);
+  color: var(--primary-font-color);
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  margin-left: 10px;
+  margin-right: auto;
+  font-size: 1em;
+  font-weight: lighter;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  height: 60%;
+  border-left: 3px solid var(--secondary-background-color);
+  max-width: 125px;
+}
+
+#notification-icon {
+  display: block;
+  height: 25px;
+  width: 25px;
+  margin: auto 5px;
+  position: relative;
+}
+
+.notification::after {
+  position: absolute;
+  content: attr(data);
+  font-size: 25px;
+  color: limegreen;
+  top: -5px;
+  right: -5px;
+}
+
+#notification-icon:hover {
+  animation: bell 1s linear backwards;
+}
+
+#profile-avatar {
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-font-color);
+}
+
+#profile-name {
+  display: inline-block;
+  margin-right: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+/* ---Navbar--- */
+.navbar {
+  background-color: var(--secondary-background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.navbar a {
+  display: inline-block;
+  width: 75%;
+  margin-top: 40px;
+}
+
+.navbar img {
+  display: block;
+  width: 35px;
+  padding: 5px;
+  margin: auto;
+}
+
+.selected {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 5px;
+}
+
+
+
+/* ---Main--- */
+.main {
+  display: grid;
+  grid-gap: 2px;
+  background-color: var(--border-color);
+  padding: 2px;
+}
+
+.traffic,
+.dailyTraffic,
+.mobileUsers,
+.social,
+.newMembers,
+.activity,
+.message,
+.settings {
+  background-color: var(--tertiary-background-color);
+}
+
+
+
+/* ---Traffic--- */
+.traffic {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* ---Daily Traffic--- */
+.dailyTraffic {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* ---Mobile Users--- */
+.mobileUsers {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* ---Social--- */
+.social {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* ---New Members--- */
+.newMembers {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* ---Activity--- */
+.activity {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* ---Message--- */
+.message {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px;
+}
+
+.message label {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 1.25em;
+}
+
+.message input,
+.message textarea,
+.message button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 1.25em;
+  border: none;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+}
+
+::placeholder {
+  color: var(--secondary-font-color);
+}
+
+.message button {
+  background-color: var(--primary-background-color);
+    color: var(--secondary-font-color);
+}
+
+
+
+/* ---Settings--- */
+.settings {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* ---Media Queries--- */
+@media (min-width: 320px) {
+
+}
+
+@media (min-width: 768px) {
+  .main {
+    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-rows: 3fr 1fr repeat(2, 2fr); */
+  }
+
+  .container {
+    grid-template-columns: 75px auto;
+    grid-template-rows: 75px auto;
+  }
+
+  .profile {
+    max-width: 250px;
+  }
+
+  #notification-icon {
+    height: 35px;
+    width: 35px;
+    margin: auto 10px;
+  }
+
+  #profile-avatar {
+    height: 40px;
+    width: 40px;
+    margin: 10px;
+  }
+
+  .navbar img {
+    width: 50px;
+    padding: 10px;
+  }
+
+  .traffic {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .social {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .message {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .settings {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+}
+
+@media (min-width: 1049px) {
+
+  .message {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+
+  .settings {
+    grid-column-start: 2;
+    grid-column-end: 3;
+  }
+
+}
+
+
+
+
+
+
+/* -----Keyframes----- */
+
+/* ---Notification Bell ---*/
+@keyframes bell {
+  0% {
+    transform: rotate(0deg);
+  }
+  12% {
+    transform: rotate(-25deg);
+  }
+  24% {
+    transform: rotate(0deg);
+  }
+  36% {
+    transform: rotate(20deg);
+  }
+  48% {
+    transform: rotate(0deg);
+  }
+  60% {
+    transform: rotate(-15deg);
+  }
+  72% {
+    transform: rotate(0deg);
+  }
+  84% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
