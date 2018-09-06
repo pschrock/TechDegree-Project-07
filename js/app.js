@@ -1,3 +1,22 @@
+
+
+
+// ----Navagation----
+const navbar = document.querySelectorAll(".navbar a");
+const dashboard = navbar[0];
+const members = navbar[1];
+const visits = navbar[2];
+const settings = navbar[3];
+
+for (let i = 0; i < navbar.length; ++i) {
+  navbar[i].addEventListener('click', (e) => {
+    for (let i = 0; i < navbar.length; ++i) {
+      navbar[i].classList.remove("selected");
+    }
+    e.path[1].classList.add("selected");
+  })
+}
+
 //In the dashboard.png, this appears as the purple bar near the top of the page with the word "Alert" in it.
 //When the page loads this alert should be visible,
 //but the user should be able to close the alert by clicking the X button.
@@ -23,6 +42,7 @@
   // SVG fill colors have been changed to match the mockups.
   // Style the social information to match the corresponding social network.
   // Style to match the overall look and feel of the dashboard.
+
 
 
 // ----Activity Widget----
@@ -61,29 +81,3 @@ sendButton.addEventListener('click', (e) => {
     message.value = "";
   }
 })
-
-
-// ----Settings Widget----
-// Create a settings widget to display various setting options using different form elements.
-  // Create an on/off widget for whether to send email notifications.
-  // Create an on/off widget for whether to set the profile to public or private.
-  // Create a drop-down to select the timezone.
-// Add Save and Cancel buttons (these do not have to do anything functional).
-// Style to match the overall look and feel of the dashboard.
-
-
-// ----Navagation----
-const navbar = document.querySelectorAll(".navbar a");
-const dashboard = navbar[0];
-const members = navbar[1];
-const visits = navbar[2];
-const settings = navbar[3];
-
-for (let i = 0; i < navbar.length; ++i) {
-  navbar[i].addEventListener('click', (e) => {
-    for (let i = 0; i < navbar.length; ++i) {
-      navbar[i].classList.remove("selected");
-    }
-    e.path[1].classList.add("selected");
-  })
-}

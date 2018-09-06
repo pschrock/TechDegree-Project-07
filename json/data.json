@@ -1,0 +1,28 @@
+{
+  "newMembers":[
+    {
+      "avatar": "images/member-1.jpg",
+      "name": "Shelly Masterson",
+      "email": "shelly.a.masterson@email.com",
+      "join": "9/25/2018"
+    },
+    {
+      "avatar": "images/member-2.jpg",
+      "name": "Paul Jones",
+      "email": "family_circus@email.com",
+      "join": "9/25/2018"
+    },
+    {
+      "avatar": "images/member-3.jpg",
+      "name": "Cynthia Chen",
+      "email": "cynthia.chen@email.com",
+      "join": "9/25/2018"
+    },
+    {
+      "avatar": "images/member-4.jpg",
+      "name": "Jordan LaFayette",
+      "email": "jordan_lafay@email.com",
+      "join": "9/24/2018"
+    }
+  ]
+}
