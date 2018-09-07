@@ -3,17 +3,13 @@
 
 // ----Navagation----
 const navbar = document.querySelectorAll(".navbar a");
-const dashboard = navbar[0];
-const members = navbar[1];
-const visits = navbar[2];
-const settings = navbar[3];
 
 for (let i = 0; i < navbar.length; ++i) {
   navbar[i].addEventListener('click', (e) => {
     for (let i = 0; i < navbar.length; ++i) {
-      navbar[i].classList.remove("selected");
+      navbar[i].classList.remove("selectNavbar");
     }
-    e.path[1].classList.add("selected");
+    e.path[1].classList.add("selectNavbar");
   })
 }
 
@@ -33,6 +29,125 @@ for (let i = 0; i < navbar.length; ++i) {
   // Mobile User Pie Chart (donut chart)
 // Style the charts to match the overall style of the dashboard.
 // You will need to make up this data -- you can see the mockup for sample data.
+
+const tc = document.getElementById('trafficChart').getContext("2d");
+const trafficMultiData = [
+  [2250, 2000, 1750, 1600, 1000, 750, 1500, 1250, 1300, 1800, 2000],
+  [750, 1500, 1250, 1300, 1800, 2000, 2250, 2000, 1750, 1600, 1000],
+  [1600, 2250, 1000, 750, 2000, 1750, 1800, 2000, 1500, 1250, 1300],
+  [1300, 1000, 750, 1500, 1250, 2000, 1750, 1600, 2250, 1800, 2000]
+];
+const trafficSelection = document.querySelectorAll('#trafficOptions li');
+
+for (let i = 0; i < trafficSelection.length; ++i) {
+  trafficSelection[i].addEventListener('click', (e) => {
+    for (let i = 0; i < trafficSelection.length; ++i) {
+      trafficSelection[i].classList.remove("selectTraffic");
+    }
+    e.path[0].classList.add("selectTraffic");
+    let choice = e.target.textContent;
+    let trafficData = trafficMultiData[0];
+    switch (choice) {
+      case 'Hourly':
+        trafficData = trafficMultiData[0];
+        break;
+      case 'Daily':
+        trafficData = trafficMultiData[1];
+        break;
+      case 'Weekly':
+        trafficData = trafficMultiData[2];
+        break;
+      case 'Monthly':
+        trafficData = trafficMultiData[3];
+        break;
+    }
+  });
+}
+// ---Traffic---
+
+var trafficChart = new Chart(tc, {
+    type: 'line',
+    data: {
+      labels: ['16-22', '23-29', '30-5', '6-12', '13-19', '20-26', '27-3', '4-10', '11-17', '18-24', '25-31'],
+      datasets: [{
+        data: trafficMultiData[0],
+        backgroundColor: 'rgba(116,119,191,0.35)',
+        borderWidth: 1,
+        lineTension: 0,
+        pointRadius: 5,
+        pointBackgroundColor: '#fff',
+        pointBorderColor: 'rgb(116,119,191)',
+        pointBorderWidth: 2
+      }]
+    },
+    options: {
+        legend: {
+          hidden: true,
+          display: false
+        },
+        tooltips: {
+          enabled: false
+        },
+        responsive: true
+    }
+});
+
+
+// ---Daily---
+const dc = document.getElementById('dailyChart').getContext("2d");
+
+var dailyChart = new Chart(dc, {
+    type: 'bar',
+    data: {
+        labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+        datasets: [{
+            data: [75, 100, 175, 125, 225, 200, 100],
+            backgroundColor: 'rgba(116,119,191)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        legend: {
+          hidden: true,
+          display: false
+        },
+        tooltips: {
+          enabled: false,
+          cornerRadius: 5
+        },
+        responsive: true
+    }
+});
+
+// ---Mobile---
+const mc = document.getElementById('mobileChart').getContext("2d");
+
+var mobileChart = new Chart(mc, {
+    type: 'doughnut',
+    data: {
+      labels: ['Phones', 'Tablets', 'Desktop'],
+      datasets: [{
+        data: [10, 15, 75],
+        backgroundColor: ['#74b1bf', '#81c98f', 'rgba(116,119,191)'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+        legend: {
+          position: 'right',
+          labels: {
+            boxWidth: 16,
+            fontSize: 16,
+            padding: 25
+          }
+        },
+        tooltips: {
+          cornerRadius: 5
+        }
+    }
+});
+
+
 
 
 // ----Social Widget----
