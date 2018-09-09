@@ -1,15 +1,57 @@
 
 
+// ----Alert Display----
+const bellIcon = document.querySelector('.notification img');
+const bellIndicator = document.querySelector('.notification span');
+const alertDisplay = document.querySelector('.alertDisplay');
+
+
+bellIcon.addEventListener('click', () => {
+  const isntVisible = window.getComputedStyle(alertDisplay,null).getPropertyValue('display');
+  if (isntVisible == 'none') {
+    alertDisplay.style.display = 'block';
+    bellIndicator.style.display = 'none';
+  } else {
+    alertDisplay.style.display = 'none';
+  }
+});
+
+const alertPopLi = document.querySelectorAll('.alertDisplay li');
+const alertPageLi = document.querySelectorAll('.alerts li');
+
+function removeDisplayedAlerts (alert) {
+  for (let i = 0; i < alert.length; ++i) {
+    alert[i].addEventListener('click', (e) => {
+      if (e.target.tagName == 'BUTTON') {
+        let parent = e.target.parentNode;
+        parent.style.display = 'none';
+      }
+    });
+  }
+}
+
+removeDisplayedAlerts(alertPopLi);
+removeDisplayedAlerts(alertPageLi);
+
+// for (let i = 0; i < alertDisplayLi.length; ++i) {
+//   alertDisplayLi[i].addEventListener('click', (e) => {
+//     removeDisplayedAlerts(e);
+//   });
+// }
+
 
 // ----Navagation----
 const navbar = document.querySelectorAll(".navbar a");
 
 for (let i = 0; i < navbar.length; ++i) {
   navbar[i].addEventListener('click', (e) => {
-    for (let i = 0; i < navbar.length; ++i) {
-      navbar[i].classList.remove("selectNavbar");
+    if (e.target.tagName == 'IMG') {
+      let parent = e.target.parentNode;
+      for (let i = 0; i < navbar.length; ++i) {
+        navbar[i].classList.remove("selectNavbar");
+      }
+      parent.classList.add("selectNavbar");
     }
-    e.path[1].classList.add("selectNavbar");
   })
 }
 
@@ -30,7 +72,6 @@ for (let i = 0; i < navbar.length; ++i) {
 // Style the charts to match the overall style of the dashboard.
 // You will need to make up this data -- you can see the mockup for sample data.
 
-const tc = document.getElementById('trafficChart').getContext("2d");
 const trafficMultiData = [
   [2250, 2000, 1750, 1600, 1000, 750, 1500, 1250, 1300, 1800, 2000],
   [750, 1500, 1250, 1300, 1800, 2000, 2250, 2000, 1750, 1600, 1000],
@@ -39,38 +80,44 @@ const trafficMultiData = [
 ];
 const trafficSelection = document.querySelectorAll('#trafficOptions li');
 
-for (let i = 0; i < trafficSelection.length; ++i) {
-  trafficSelection[i].addEventListener('click', (e) => {
-    for (let i = 0; i < trafficSelection.length; ++i) {
-      trafficSelection[i].classList.remove("selectTraffic");
-    }
-    e.path[0].classList.add("selectTraffic");
-    let choice = e.target.textContent;
-    let trafficData = trafficMultiData[0];
-    switch (choice) {
-      case 'Hourly':
-        trafficData = trafficMultiData[0];
-        break;
-      case 'Daily':
-        trafficData = trafficMultiData[1];
-        break;
-      case 'Weekly':
-        trafficData = trafficMultiData[2];
-        break;
-      case 'Monthly':
-        trafficData = trafficMultiData[3];
-        break;
-    }
-  });
+function trafficSelected(){
+  for (let i = 0; i < trafficSelection.length; ++i) {
+    trafficSelection[i].addEventListener('click', (e) => {
+      for (let i = 0; i < trafficSelection.length; ++i) {
+        trafficSelection[i].classList.remove("selectTraffic");
+      }
+      e.target.classList.add("selectTraffic");
+      let choice = e.target.textContent;
+      switch (choice) {
+        case 'Hourly':
+          trafficHourly();
+          break;
+        case 'Daily':
+          trafficDaily();
+          break;
+        case 'Weekly':
+          trafficWeekly();
+          break;
+        case 'Monthly':
+          trafficMonthly();
+          break;
+      }
+    });
+  }
 }
-// ---Traffic---
 
+trafficSelected();
+
+// ---Traffic---
+const tc = document.getElementById('trafficChart').getContext("2d");
+Chart.defaults.global.responsive = true;
+Chart.defaults.global.maintainAspectRatio = false;
 var trafficChart = new Chart(tc, {
     type: 'line',
     data: {
       labels: ['16-22', '23-29', '30-5', '6-12', '13-19', '20-26', '27-3', '4-10', '11-17', '18-24', '25-31'],
       datasets: [{
-        data: trafficMultiData[0],
+        data: [2250, 2000, 1750, 1600, 1000, 750, 1500, 1250, 1300, 1800, 2000],
         backgroundColor: 'rgba(116,119,191,0.35)',
         borderWidth: 1,
         lineTension: 0,
@@ -87,11 +134,29 @@ var trafficChart = new Chart(tc, {
         },
         tooltips: {
           enabled: false
-        },
-        responsive: true
+        }
     }
 });
 
+function trafficHourly () {
+  trafficChart.data.datasets[0].data = trafficMultiData[0];
+  trafficChart.update();
+}
+
+function trafficDaily () {
+  trafficChart.data.datasets[0].data = trafficMultiData[1];
+  trafficChart.update();
+}
+
+function trafficWeekly () {
+  trafficChart.data.datasets[0].data = trafficMultiData[2];
+  trafficChart.update();
+}
+
+function trafficMonthly () {
+  trafficChart.data.datasets[0].data = trafficMultiData[3];
+  trafficChart.update();
+}
 
 // ---Daily---
 const dc = document.getElementById('dailyChart').getContext("2d");
@@ -114,8 +179,7 @@ var dailyChart = new Chart(dc, {
         tooltips: {
           enabled: false,
           cornerRadius: 5
-        },
-        responsive: true
+        }
     }
 });
 
