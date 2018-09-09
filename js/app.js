@@ -90,16 +90,16 @@ function trafficSelected(){
       let choice = e.target.textContent;
       switch (choice) {
         case 'Hourly':
-          trafficHourly();
+          trafficData(0);
           break;
         case 'Daily':
-          trafficDaily();
+          trafficData(1);
           break;
         case 'Weekly':
-          trafficWeekly();
+          trafficData(2);
           break;
         case 'Monthly':
-          trafficMonthly();
+          trafficData(3);
           break;
       }
     });
@@ -138,23 +138,8 @@ var trafficChart = new Chart(tc, {
     }
 });
 
-function trafficHourly () {
-  trafficChart.data.datasets[0].data = trafficMultiData[0];
-  trafficChart.update();
-}
-
-function trafficDaily () {
-  trafficChart.data.datasets[0].data = trafficMultiData[1];
-  trafficChart.update();
-}
-
-function trafficWeekly () {
-  trafficChart.data.datasets[0].data = trafficMultiData[2];
-  trafficChart.update();
-}
-
-function trafficMonthly () {
-  trafficChart.data.datasets[0].data = trafficMultiData[3];
+function trafficData (index) {
+  trafficChart.data.datasets[0].data = trafficMultiData[index];
   trafficChart.update();
 }
 
@@ -211,39 +196,6 @@ var mobileChart = new Chart(mc, {
     }
 });
 
-
-
-
-// ----Social Widget----
-// Create a widget (or three separate widgets) to display social network stats for Facebook, Twitter, and Google+.
-  // Use the provided SVG icons for each of the social networks.
-  // SVG icons are added as inline SVG's.
-  // SVG fill colors have been changed to match the mockups.
-  // Style the social information to match the corresponding social network.
-  // Style to match the overall look and feel of the dashboard.
-
-
-
-// ----Activity Widget----
-// Create widgets that list users for both widgets.
-  // Include avatars for each member (member avatars are inside images folder).
-  // Add the information for each user as shown in the mockup,
-    // such as Member name,
-    // email address,
-    // Sign up Date etc.
-
-
-// ----Message Widget----
-// Create a field for searching for a user.
-// You don't have to add real search functionality,
-// but if you attempt to get the exceeds grade, you'll need to make up some user data.
-// Add a message textarea field that lets you add a message.
-// Create a “Send” button and use JS to allow you to submit the form
-// and display a confirmation the message was sent.
-  //You won't actually submit the form, just simulate the action using JavaScript.
-  // Use JS to display error messages if a user isn’t selected or message field is empty.
-// Style to match the overall look and feel of the dashboard.
-
 const sendButton = document.getElementById('sendButton');
 const searchedUser = document.querySelector('.message input');
 const message = document.querySelector('.message textArea');
@@ -262,89 +214,66 @@ sendButton.addEventListener('click', (e) => {
 });
 
 function autocomplete(inp, arr) {
-  /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
-  var currentFocus;
-  /*execute a function when someone writes in the text field:*/
+  let currentFocus;
   inp.addEventListener("input", function(e) {
-      var a, b, i, val = this.value;
-      /*close any already open lists of autocompleted values*/
+      var a,
+          b,
+          i,
+          val = this.value;
       closeAllLists();
       if (!val) { return false;}
       currentFocus = -1;
-      /*create a DIV element that will contain the items (values):*/
       a = document.createElement("DIV");
       a.setAttribute("id", this.id + "autocomplete-list");
       a.setAttribute("class", "autocomplete-items");
-      /*append the DIV element as a child of the autocomplete container:*/
       this.parentNode.appendChild(a);
-      /*for each item in the array...*/
       for (i = 0; i < arr.length; i++) {
-        /*check if the item starts with the same letters as the text field value:*/
         if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-          /*create a DIV element for each matching element:*/
           b = document.createElement("DIV");
-          /*make the matching letters bold:*/
           b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
           b.innerHTML += arr[i].substr(val.length);
-          /*insert a input field that will hold the current array item's value:*/
           b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-          /*execute a function when someone clicks on the item value (DIV element):*/
           b.addEventListener("click", function(e) {
-              /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
-              /*close the list of autocompleted values,
-              (or any other open lists of autocompleted values:*/
               closeAllLists();
           });
           a.appendChild(b);
         }
       }
   });
-  /*execute a function presses a key on the keyboard:*/
+
   inp.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "autocomplete-list");
+      let x = document.getElementById(this.id + "autocomplete-list");
       if (x) x = x.getElementsByTagName("div");
       if (e.keyCode == 40) {
-        /*If the arrow DOWN key is pressed,
-        increase the currentFocus variable:*/
         currentFocus++;
-        /*and and make the current item more visible:*/
         addActive(x);
-      } else if (e.keyCode == 38) { //up
-        /*If the arrow UP key is pressed,
-        decrease the currentFocus variable:*/
+      } else if (e.keyCode == 38) {
         currentFocus--;
-        /*and and make the current item more visible:*/
         addActive(x);
       } else if (e.keyCode == 13) {
-        /*If the ENTER key is pressed, prevent the form from being submitted,*/
         e.preventDefault();
         if (currentFocus > -1) {
-          /*and simulate a click on the "active" item:*/
           if (x) x[currentFocus].click();
         }
       }
   });
+
   function addActive(x) {
-    /*a function to classify an item as "active":*/
     if (!x) return false;
-    /*start by removing the "active" class on all items:*/
     removeActive(x);
     if (currentFocus >= x.length) currentFocus = 0;
     if (currentFocus < 0) currentFocus = (x.length - 1);
-    /*add class "autocomplete-active":*/
     x[currentFocus].classList.add("autocomplete-active");
   }
+
   function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
     for (var i = 0; i < x.length; i++) {
       x[i].classList.remove("autocomplete-active");
     }
   }
+
   function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
     var x = document.getElementsByClassName("autocomplete-items");
     for (var i = 0; i < x.length; i++) {
       if (elmnt != x[i] && elmnt != inp) {
@@ -352,13 +281,13 @@ function autocomplete(inp, arr) {
       }
     }
   }
-  /*execute a function when someone clicks in the document:*/
+
   document.addEventListener("click", function (e) {
       closeAllLists(e.target);
   });
 }
 
-/*An array containing all the country names in the world:*/
+// An array containing all the member names
 const names = ['Walter', 'Wilma', 'Eva', 'Edward', 'Ralph', 'Rebecca', 'Travis',
 'Teressa', 'Yolanda', 'Yakovich', 'Isabel', 'Isreal', 'Paul', 'Patricia',
 'Albert', 'Angela', 'Sarah', 'Saul', 'Donica', 'Daniel', 'Felicia', 'Fester',
@@ -368,3 +297,39 @@ const names = ['Walter', 'Wilma', 'Eva', 'Edward', 'Ralph', 'Rebecca', 'Travis',
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("memberName"), names);
+
+
+
+
+// Test for local storage
+  const saveSettings = document.querySelector('.saveSettings');
+  const cancelSettings = document.querySelector('.cancelSettings');
+  let emailSwitch = document.querySelector('.emailSwitch input');
+  let profileSwitch = document.querySelector('.profileSwitch input');
+  let timezoneSelect = document.querySelector('.timezone');
+
+  let storedEmail = localStorage.email;
+  let storedProfile = localStorage.profile;
+  let storedTimezone = localStorage.timezone;
+
+  window.onload = function(){
+    emailSwitch.click(storedEmail);
+    console.log(storedEmail);
+    profileSwitch.click(storedProfile);
+    console.log(storedProfile);
+    timezoneSelect.value = storedTimezone;
+    console.log(storedTimezone);
+  };
+
+  saveSettings.addEventListener('click', () => {
+    let email = emailSwitch.checked;
+    let profile = profileSwitch.checked;
+    let timezone = timezoneSelect.value;
+    let collection = [email, profile, timezone];
+    let strings = ['email', 'profile', 'timezone'];
+
+    for (let i = 0; i < collection.length; ++i) {
+      localStorage.setItem(strings[i], collection[i]);
+    }
+    alert('Your settings have been stored');
+  });
