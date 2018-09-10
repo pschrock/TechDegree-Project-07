@@ -28,7 +28,7 @@
   height: 100vh;
   font-family: 'Catamaran', sans-serif;
   color: var(--secondary-font-color);
-  grid-template-columns: 50px auto 10px;
+  grid-template-columns: 50px auto;
   grid-template-rows: 50px auto;
 }
 
@@ -347,7 +347,7 @@ h3 {
 /* ---Social--- */
 .socialStats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-gap: 10px;
 }
 
@@ -356,12 +356,16 @@ h3 {
   border: 2px solid var(--extra-color);
   border-radius: 5px;
   background-color: #fbfbfb;
+  margin: auto;
+}
+
+.card div {
   display: grid;
   grid-template-columns: 48px 96px;
   grid-template-rows: 25% 75%;
 }
 
-.card div {
+.socialIcon {
   height: 2em;
   width: 2em;
   margin: 0.5em;
@@ -371,27 +375,11 @@ h3 {
   grid-row-end: 3;
 }
 
-/* .card div {
-  height: 4em;
-  width: 4em;
-  margin: 1em;
-  border-radius: 50%;
-  background-color: var(--primary-background-color);
-  grid-row-start: 1;
-  grid-row-end: 3;
-} */
-
 .card svg {
   height: 1em;
   width: 1em;
   margin: .5em;
 }
-
-/* .card svg {
-  height: 2em;
-  width: 2em;
-  margin: 1em;
-} */
 
 .card path {
   fill: #fbfbfb;
@@ -410,16 +398,6 @@ h3 {
   color: var(--primary-background-color);
 }
 
-/* .card h4 {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  margin-bottom: 0;
-  margin-top: auto;
-  color: var(--primary-background-color);
-} */
-
 .card p {
   grid-column-start: 2;
   grid-column-end: 3;
@@ -428,15 +406,6 @@ h3 {
   font-size: 1.25em;
   margin: 0;
 }
-
-/* .card p {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  font-size: 3em;
-  margin: 0;
-} */
 
 /* ---New Members--- */
 /* ---Activity--- */
@@ -459,13 +428,19 @@ h3 {
   max-height: 1em;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .memberFormatter div:nth-child(2) p:last-child,
 .memberFormatter div:nth-child(2) a {
   font-size: 0.85em;
   font-weight: 600;
+}
+
+.memberFormatter div:nth-child(2) a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .memberFormatter a {
@@ -665,18 +640,23 @@ input:checked + .slider:before {
 
 /* ////-min-width: 320px-\\\\ */
 /* -General- */
-/* @media (min-width: 320px)
+@media (min-width: 320px)
   and (orientation: landscape) {
   .trafficContainer,
   .dailyTrafficContainer,
   .mobileUsersContainer {
     height: calc(75vh);
   }
-} */
+}
 
 /* /////-min-width: 760px-\\\\ */
 /* -General- */
 @media (min-width: 768px) {
+
+  .container {
+    grid-template-columns: 50px auto 10px;
+  }
+  
   .main {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -743,6 +723,11 @@ input:checked + .slider:before {
     grid-column-end: 3;
   }
 
+  .socialStats {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+  }
+
   /* .message {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -770,6 +755,33 @@ input:checked + .slider:before {
   .message {
     grid-column-start: 1;
     grid-column-end: 2;
+  }
+
+  .card div {
+    grid-template-columns: 6em auto;
+    grid-template-rows: 2em 4em;
+    margin-right: 1em;
+  }
+
+  .socialIcon {
+    height: 4em;
+    width: 4em;
+    margin: 1em;
+  }
+
+  .card svg {
+    height: 2em;
+    width: 2em;
+    margin: 1em;
+  }
+
+  .card h4 {
+    margin-bottom: 0;
+    font-size: 1em;
+  }
+
+  .card p {
+    font-size: 3em;
   }
 
   .card:nth-child(1) {
