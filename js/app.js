@@ -320,7 +320,7 @@ autocomplete(document.getElementById("memberName"), names);
   if (localStorage.isSaved) {
     emailSwitch.checked = JSON.parse(localStorage.email);
     profileSwitch.checked = JSON.parse(localStorage.profile);
-    timezoneSelect.checked = JSON.parse(localStorage.timezone);
+    timezoneSelect.value = JSON.parse(localStorage.timezone);
   }
 
   saveSettings.addEventListener('click', () => {
