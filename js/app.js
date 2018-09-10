@@ -303,33 +303,35 @@ autocomplete(document.getElementById("memberName"), names);
 
 // Test for local storage
   const saveSettings = document.querySelector('.saveSettings');
-  const cancelSettings = document.querySelector('.cancelSettings');
+  // const cancelSettings = document.querySelector('.cancelSettings');
   let emailSwitch = document.querySelector('.emailSwitch input');
   let profileSwitch = document.querySelector('.profileSwitch input');
   let timezoneSelect = document.querySelector('.timezone');
+  // let email,
+  //     profile,
+  //     timezone;
 
-  let storedEmail = localStorage.email;
-  let storedProfile = localStorage.profile;
-  let storedTimezone = localStorage.timezone;
+  // let storedEmail = localStorage.email;
+  // let storedProfile = localStorage.profile;
+  // let storedTimezone = localStorage.timezone;
+  // let collection = [email, profile, timezone];
+  // let storedValues = [storedEmail, storedProfile, storedTimezone];
 
-  window.onload = function(){
-    emailSwitch.click(storedEmail);
-    console.log(storedEmail);
-    profileSwitch.click(storedProfile);
-    console.log(storedProfile);
-    timezoneSelect.value = storedTimezone;
-    console.log(storedTimezone);
-  };
+  if (localStorage.isSaved) {
+    emailSwitch.checked = JSON.parse(localStorage.email);
+    profileSwitch.checked = JSON.parse(localStorage.profile);
+    timezoneSelect.checked = JSON.parse(localStorage.timezone);
+  }
 
   saveSettings.addEventListener('click', () => {
     let email = emailSwitch.checked;
     let profile = profileSwitch.checked;
     let timezone = timezoneSelect.value;
-    let collection = [email, profile, timezone];
-    let strings = ['email', 'profile', 'timezone'];
+    localStorage.setItem('email', email);
+    localStorage.setItem('profile', profile);
+    localStorage.setItem('timezone', timezone);
+    // let strings = ['email', 'profile', 'timezone'];
 
-    for (let i = 0; i < collection.length; ++i) {
-      localStorage.setItem(strings[i], collection[i]);
-    }
+    localStorage.isSaved = true;
     alert('Your settings have been stored');
   });
